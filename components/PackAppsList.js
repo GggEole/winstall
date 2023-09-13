@@ -3,6 +3,7 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 import styles from "../styles/packsAppList.module.scss";
 import SingleApp from "./SingleApp";
+import DonateCard from "./DonateCard";
 
 import { FiPlus, FiPlusCircle, FiXCircle } from "react-icons/fi";
 import Search from "./Search";
@@ -63,10 +64,14 @@ function PackAppsList({ notLoggedIn = false, providedApps, reorderEnabled, onLis
     if(!reorderEnabled){
         return (
           <ul className={`${styles.appsList} ${styles.noDragList}`}> 
-            {apps.map((app) => (
-              <div className={styles.appCard} key={app._id}>
-                <SingleApp app={app} pack={true} displaySelect={true}/>
-              </div>
+            {apps.map((app, index) => (
+              <React.Fragment>
+                <div className={styles.appCard} key={app._id}>
+                  <SingleApp app={app} pack={true} displaySelect={true}/>
+                </div>
+
+                { index === 3 && <DonateCard />}
+              </React.Fragment>
             ))}
           </ul>
         );

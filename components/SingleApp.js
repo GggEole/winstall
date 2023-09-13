@@ -161,7 +161,7 @@ let SingleApp = ({ app, all, onVersionChange = false, large = false, showTime = 
           {large ? (
             <>
               <AppIcon id={app._id} name={app.name} icon={app.icon} />
-              {app.name}
+              Install {app.name} with winget
             </>
           ) : (
             <Link href="/apps/[id]" as={`/apps/${app._id}`} prefetch={false}>
@@ -231,7 +231,7 @@ let SingleApp = ({ app, all, onVersionChange = false, large = false, showTime = 
             <a
               href={`${app.homepage}?ref=winstall`}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener noreferrer ugc"
               onClick={(e) => e.stopPropagation()}
             >
               <FiExternalLink />
@@ -336,7 +336,7 @@ const ExtraMetadata = ({ app }) => {
         app.minOS && (
           <li>
             <FiAlertOctagon/>
-            Minimum OS verison: {app.minOS}
+            Minimum OS version: {app.minOS}
           </li>
         )
       }
@@ -345,7 +345,8 @@ const ExtraMetadata = ({ app }) => {
         app.license && (
           <li>
             { app.licenseUrl && (
-              <a href={app.licenseUrl} target="_blank" rel="noopener noreferrer">
+              <a href={app.licenseUrl} target="_blank"
+                 rel="noopener noreferrer ugc">
                 <FiFileText />
                 License: {app.license}
               </a>

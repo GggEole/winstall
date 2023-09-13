@@ -10,6 +10,7 @@ import Skeleton from "react-loading-skeleton";
 import { useRouter } from "next/router";
 import MetaTags from "../../components/MetaTags";
 import fetchWinstallAPI from "../../utils/fetchWinstallAPI";
+import DonateCard from "../../components/DonateCard";
 
 function AppSkeleton() {
     return (
@@ -49,10 +50,11 @@ function AppDetail({ app, popular}) {
             ) : (
               <div>
                 <MetaTags
-                  title={`${app.name} - winstall`}
+                  title={`Install ${app.name} with winget - winstall`}
                   desc={app.desc}
                 />
                 <ul className="largeApp"><SingleApp app={app} large={true} displaySelect={false}/></ul>
+                <DonateCard/>
               </div>
             )}
             <div className="art">

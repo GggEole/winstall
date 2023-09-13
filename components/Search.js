@@ -7,14 +7,14 @@ import Fuse from "fuse.js";
 import SingleApp from "../components/SingleApp";
 import ListPackages from "../components/ListPackages";
 
-import {FiSearch, FiHelpCircle} from "react-icons/fi";
+import { FiSearch, FiHelpCircle } from "react-icons/fi";
 import { forceVisible } from 'react-lazyload';
 import { useRouter } from "next/router";
 
 function Search({ apps, onSearch, label, placeholder, preventGlobalSelect, isPackView, alreadySelected=[], limit=-1}) {
   const [results, setResults] = useState([])
   const [searchInput, setSearchInput] = useState();
-  const defaultKeys = [{ name: "name", weight: 2 }, "path", "desc", "publisher", "tags"];
+  const defaultKeys = [{ name: "moniker", weight: 2 }, { name: "name", weight: 2 }, "path", "desc", "publisher", "tags"];
   const [keys, setKeys] = useState(defaultKeys);
   const router = useRouter();
   const [urlQuery, setUrlQuery] = useState();
@@ -80,7 +80,7 @@ function Search({ apps, onSearch, label, placeholder, preventGlobalSelect, isPac
 
   return (
     <div>
-      <label htmlFor="search" className={styles.searchLabel}>{label || `${Math.floor(apps.length / 50) * 50}+ apps and growing.`}</label>
+      <label htmlFor="search" className={styles.searchLabel}>{label || `${Math.floor(apps.length / 50) * 50}+ packages and growing.`}</label>
       <div className={styles.searchBox}>
         <div className={styles.searchInner}>
           <FiSearch />
@@ -109,7 +109,15 @@ function Search({ apps, onSearch, label, placeholder, preventGlobalSelect, isPac
             </ul>
           </div>
         </div>
-        {results.length > 0 && searchInput && <p className={styles.searchHint}>Showing {results.length} {results.length === 1 ? "result" : "results"}.</p>}
+        {searchInput && results.length === limit &&
+          <p className={styles.searchHint}>
+            Showing {results.length} result
+            {results.length > 1 && "s"}
+            . {results.length == limit &&
+              <a href={`/apps?q=${searchInput}`}>More</a>
+            }
+          </p>
+        }
       </div>
 
       {searchInput && results.length !== 0 ? (

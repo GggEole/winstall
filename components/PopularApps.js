@@ -4,7 +4,7 @@ import ListPackages from "../components/ListPackages";
 
 import PopularContext from "../ctx/PopularContext";
 
-import {FiPackage} from "react-icons/fi";
+import { FiPackage } from "react-icons/fi";
 import { useEffect, useContext } from "react";
 
 let PopularApps = ({ apps, all }) => {
@@ -30,7 +30,7 @@ let PopularApps = ({ apps, all }) => {
             </Link>
           </div>
           <h3 className="blockSubtitle">
-            The essentials for your new Windows device. Click to include them on your install script.
+            The essentials for your new Windows device. Click + to include them in your install script.
           </h3>
           <ListPackages popular>
             {popular.map((app) => (

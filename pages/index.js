@@ -13,6 +13,7 @@ import Link from "next/link";
 import { FiPlus, FiPackage } from "react-icons/fi";
 import fetchWinstallAPI from "../utils/fetchWinstallAPI";
 import Error from "../components/Error";
+import DonateCard from "../components/DonateCard";
 
 function Home({ popular, apps, recommended, error}) {
   if(error) {
@@ -21,21 +22,30 @@ function Home({ popular, apps, recommended, error}) {
 
   return (
     <div>
-      <MetaTags title="winstall - GUI for Windows Package Manager" />
+      <MetaTags title="Browse the winget repository - winstall" />
       <div className={styles.intro}>
         <div className="illu-box">
-          <h1>
-            Bulk install Windows apps quickly with Windows Package Manager.
-          </h1>
-          <div className="art">
-            <img
-              src="/assets/logo.svg"
-              draggable={false}
-              alt="winstall logo"
-            />
+          <div>
+            <h1>
+              Browse the winget repository.
+            </h1>
+            <p className={styles.lead}>
+              Install Windows apps quickly with Windows Package Manager.
+            </p>
+            <Search apps={apps} limit={4}/>
+            <DonateCard />
           </div>
+         
+          <div className="art">
+              <img
+                src="/assets/logo.svg"
+                draggable={false}
+                alt="winstall logo"
+              />
+            </div>
         </div>
-        <Search apps={apps} limit={4}/>
+       
+      
       </div>
 
       <PopularApps apps={popular} all={apps} />

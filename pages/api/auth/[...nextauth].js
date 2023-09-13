@@ -1,42 +1,39 @@
 import NextAuth from "next-auth";
-import Providers from "next-auth/providers";
-
+import TwitterProvider from "next-auth/providers/twitter";
 
 const options = {
   providers: [
-    Providers.Twitter({
+    TwitterProvider({
       clientId: process.env.TWITTER_ID,
       clientSecret: process.env.TWITTER_SECRET,
     }),
   ],
+
   secret: process.env.SECRET,
 
   session: {
+    strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60,
   },
 
-  jwt: true,
-
   callbacks: {
-    session: async (session, user) => {
-      if(session && user){
-        session.user = user;
+    session: async ({ session, token }) => {
+      if (session && token) {
+        session.user = token;
       }
 
       return Promise.resolve(session);
     },
 
-    jwt: async (token, user, account, profile, isNewUser) => {
-      if(profile){
+    jwt: async ({ token, account, profile }) => {
+      if (profile) {
         token.id = profile.id_str;
       }
 
-      if(account){
-        token.accessToken = account.accessToken;
-        token.refreshToken = account.refreshToken;
+      if (account) {
+        token.accessToken = account.oauth_token;
+        token.refreshToken = account.oauth_token_secret;
       }
-
-
 
       return Promise.resolve(token);
     },
