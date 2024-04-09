@@ -15,23 +15,16 @@ const AppIcon = ({id, name, icon}) => {
       );
     }
 
-    if(!icon){ // if we don't have an icon, we mimmick one with app initials
-        const nameParts = name.split(" ");
-        let initials = name[0].substr(0, 1).toUpperCase();
-
-        if(nameParts.length > 1){
-            let secondChar = nameParts[nameParts.length-1].substr(0, 1).toUpperCase();
-
-            // make sure the second character we are about to add is alphanumerical 
-            if(secondChar.match(/^[a-z0-9]+$/i)){
-                initials += secondChar;
-            }
-        }
-
-        // Set aria-hidden=true to prevent Google from thinking that the app
-        // detail page title is "GInstall Git with winget" (instead of "Install
-        // Git with winget").
-        return <span className={styles.noIcon} aria-hidden="true">{initials}</span>;
+    if(!icon) {
+        return (
+          <img
+              src="/generic-app-icon.svg"
+              alt="Package icon"
+              // Specify the size to avoid Cumulative Layout Shift:
+              width="25"
+              height="25"
+            />
+        );
     }
 
     if (icon.startsWith("http")) {
